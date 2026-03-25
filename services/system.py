@@ -1,7 +1,7 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException
 import logging
-from schemas.system import SystemCreate
+from schemas.system import SystemCreate, SystemPageResponse
 from models.system import System
 from crud import system as crud
 
@@ -40,4 +40,22 @@ async def create_system(system_data: SystemCreate, db: AsyncSession):
     # 日志：记录成功
     logger.info("系统创建成功: id=%s", new_system.id)
 
-    return new_system
+    return new_system       # <--- 返回 SQLAlchemy ORM 对象
+
+
+async def get_system_list(page: int, page_size: int, db: AsyncSession):
+    total, items = await crud.get_system_list(page, page_size, db)
+
+    """
+    最终返回结构：
+        total
+        items [
+                {
+                    SystemResponse 里面的参数
+                }
+            ]
+    """
+    return SystemPageResponse(
+        total=total,
+        items=items
+    )
