@@ -1,10 +1,18 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-from router import users
+import logging
+from routers import system
 
 app = FastAPI()
 
+# 全局日志配置
+logging.basicConfig(
+    level=logging.INFO,  # ⭐ 让 logger.info 生效
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+)
+
+# 打开 SQL 日志（你现在需要）
+logging.getLogger("sqlalchemy.engine").setLevel(logging.INFO)
 
 """
 @app.get("/")
@@ -23,4 +31,4 @@ app.add_middleware(
     allow_headers=["*"],  # 允许所有请求头
 )
 
-app.include_router(users.router)
+app.include_router(system.router)
