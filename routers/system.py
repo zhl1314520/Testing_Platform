@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy.ext.asyncio import AsyncSession
-from api.deps import get_db
+
+from core.db import get_db
 from schemas.system import SystemCreate, SystemResponse, SystemPageResponse
 from services import system as service
 
@@ -32,3 +33,11 @@ async def get_system_list(
     db: AsyncSession = Depends(get_db)
 ):
     return await service.get_system_list(page, page_size, db)
+
+# 删除系统
+@router.delete("/delete/{id}")
+async def delete_system(
+    id: int,
+    db: AsyncSession = Depends(get_db)
+):
+    return await service.delete_system(id, db)

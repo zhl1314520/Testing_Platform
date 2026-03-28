@@ -1,3 +1,4 @@
+from sqlalchemy import delete
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import HTTPException
 import logging
@@ -59,3 +60,13 @@ async def get_system_list(page: int, page_size: int, db: AsyncSession):
         total=total,
         items=items
     )
+
+# 删除系统
+async def delete_system(id: int, db: AsyncSession):
+    stmt = delete(System).where(System.id == id)
+    await db.execute(stmt)
+    await db.commit()
+    return {
+        "code": 200,
+        "message": "删除成功"
+    }

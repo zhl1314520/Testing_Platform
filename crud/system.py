@@ -62,3 +62,5 @@ async def get_system_list(page: int, page_size: int, db: AsyncSession):
     items = result.scalars().all()
 
     return total, items
+
+

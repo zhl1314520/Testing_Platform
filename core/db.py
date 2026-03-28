@@ -18,3 +18,11 @@ async_session_factory = async_sessionmaker(
     expire_on_commit=False,
     class_=AsyncSession,
 )
+
+"""
+依赖注入
+"""
+# 获取数据库 session
+async def get_db():
+    async with async_session_factory() as session:
+        yield session
