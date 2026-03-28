@@ -4,7 +4,7 @@ from fastapi import HTTPException
 import logging
 from schemas.system import SystemCreate, SystemPageResponse
 from models.system import System
-from crud import system as crud
+from DAO import system as crud
 
 # 日志
 logger = logging.getLogger(__name__)
