@@ -71,3 +71,11 @@ class User(Base):
         nullable=True, 
         comment="软删除时间"
     )
+
+    # Debug
+    def __repr__(self):
+        return (
+            f"<User id={self.id} "
+            f"username='{self.username}' "
+            f"role='{self.role}' "
+            f"email='{self.email}'>")

@@ -2,6 +2,6 @@ from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# $12$SKCIVK3vIS.OklGImi3K0uR7sJ1V54SLfERMrIXQZQss4Y6dpQ1ZG
+# $2b$12$NbHy8TGwh28N6BM/tyar6O9rRblCVzmIxleq5sqLyXCLww7i8OhVS
 if __name__ == "__main__":
-    print(pwd_context.hash("123123123"))
+    print(pwd_context.hash("123456"))

@@ -50,7 +50,7 @@ user_router = APIRouter(
 
 
 @user_router.post("", response_model=UserResponse)
-async def create_user_endpoint(
+async def create_user(
     user_info: UserCreate,
     db: AsyncSession = Depends(get_db)
 ):
@@ -58,7 +58,7 @@ async def create_user_endpoint(
 
 
 @user_router.get("", response_model=UserPageResponse)
-async def get_user_list_endpoint(
+async def get_user_list(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=100),
     db: AsyncSession = Depends(get_db)
@@ -67,7 +67,7 @@ async def get_user_list_endpoint(
 
 
 @user_router.delete("/{id}")
-async def delete_user_endpoint(
+async def delete_user(
     id: int,
     db: AsyncSession = Depends(get_db)
 ):
@@ -145,7 +145,7 @@ async def verify_code(
 
 
 @password_reset_router.post("/reset-password")
-async def reset_password_endpoint(
+async def reset_password(
     email: str,
     code: str,
     new_password: str,

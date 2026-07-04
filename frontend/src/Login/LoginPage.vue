@@ -10,7 +10,7 @@
               <path d="M2 12L12 17L22 12"/>
             </svg>
           </div>
-          <span>HBNU-TMP</span>
+          <span>TMP</span>
         </a>
       </div>
 

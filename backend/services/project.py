@@ -103,7 +103,7 @@ async def add_project_member(member_data: ProjectMemberCreate, db: AsyncSession)
     if not project:
         raise HTTPException(
             status_code=404,
-            detail="PROJECT_NOT_FOUND"
+            detail="项目不存在"
         )
 
     new_member = ProjectMember(

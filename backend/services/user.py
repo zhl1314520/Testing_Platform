@@ -17,7 +17,7 @@ async def create_user(user_data: UserCreate, db: AsyncSession):
         logger.warning("用户已存在: username=%s", user_data.username)
         raise HTTPException(
             status_code=400,
-            detail="USER_ALREADY_EXISTS"
+            detail="用户已经存在"
         )
 
     hashed_password = get_password_hash(user_data.password)
@@ -45,14 +45,14 @@ async def login_user(email: str, password: str, db: AsyncSession):
         logger.warning("用户不存在: email=%s", email)
         raise HTTPException(
             status_code=401,
-            detail="INVALID_CREDENTIALS"
+            detail="非法身份"
         )
 
     if not verify_password(password, user.password):
         logger.warning("密码错误: email=%s", email)
         raise HTTPException(
             status_code=401,
-            detail="INVALID_CREDENTIALS"
+            detail="非法身份"
         )
 
     access_token = create_access_token(
@@ -91,7 +91,7 @@ async def update_user(user_id: int, user_data: UserUpdate, db: AsyncSession):
         logger.warning("用户不存在：user_id=%s", user_id)
         raise HTTPException(
             status_code=404,
-            detail="USER_NOT_FOUND"
+            detail="用户不存在"
         )
     
     # 只允许更新 email 和 role
@@ -116,7 +116,7 @@ async def get_user_by_id(user_id: int, db: AsyncSession):
         logger.warning("用户不存在：user_id=%s", user_id)
         raise HTTPException(
             status_code=404,
-            detail="USER_NOT_FOUND"
+            detail="用户不存在"
         )
     
     return user
@@ -130,14 +130,14 @@ async def change_password(user_id: int, old_password: str, new_password: str, db
         logger.warning("用户不存在：user_id=%s", user_id)
         raise HTTPException(
             status_code=404,
-            detail="USER_NOT_FOUND"
+            detail="用户不存在"
         )
     
     if not verify_password(old_password, user.password):
         logger.warning("原密码错误：user_id=%s", user_id)
         raise HTTPException(
             status_code=400,
-            detail="OLD_PASSWORD_INCORRECT"
+            detail="旧密码错误"
         )
     
     user.password = get_password_hash(new_password)
